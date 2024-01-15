@@ -14,7 +14,7 @@ function startWorker(amqpConn, errorHandler) {
       console.log("[AMQP] channel closed");
     });
 
-    ch.prefetch(10);
+    ch.prefetch(2); // Dequeue 2 Messages from Queue.
 
     workers.forEach((worker) => {
       const { queue } = worker;
@@ -42,8 +42,10 @@ function startWorker(amqpConn, errorHandler) {
 }
 
 function work(msg, cb) {
-  console.log("Received Message From Queue", msg.content.toString());
-  cb(true);
+  setTimeout(()=>{
+    console.log("Received Message From Queue", msg.content.toString());
+    cb(true);
+  }, 10000);
 }
 
 module.exports = { startWorker };

@@ -13,7 +13,6 @@ function start() {
       return setTimeout(start, 1000);
     }
     conn.on("error", function (err) {
-        console.log('ERRRR', err);
       if (err.message !== "Connection closing") {
         console.error("[AMQP] conn error", err.message);
       }
@@ -44,7 +43,7 @@ function whenConnected() {
 // For Testing Purpose I'm Publish a Message.
 setInterval(function () {
   const { exchange, routingKey } = workers[0];
-  const message = Buffer.from("Hey Ram You'r learned RabbitMQ man!", "utf-8");
+  const message = Buffer.from("Hey Ram You learned RabbitMQ man!", "utf-8");
   publish(exchange, routingKey, message);
 }, 1000);
 
